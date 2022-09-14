@@ -12,8 +12,16 @@ class Song
 end 
 
 # We can acces to a variable throught getters 
- 
+
 
 song1 = Song.new("legends never die", 100, "wow")
 
-puts song1.name
+puts song1.getName
+
+
+# LOOK this example
+
+str = "hello, %s" 
+
+puts str % "100"
+

@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rack (3.0.0)
+    robocop (0.1.1)
+      rack
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  robocop (~> 0.1.1)
+
+BUNDLED WITH
+   2.3.5
