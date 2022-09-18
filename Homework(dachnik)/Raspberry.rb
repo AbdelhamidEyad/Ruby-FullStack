@@ -1,17 +1,15 @@
 class Raspberry
    
-    @@stages_of_madurity = ["absent", "flowering", "green", "red"]
-    
+    @@stages_of_madurity = %w[absent flowering green red]  
     attr_accessor :index, :stages_of_madurity
   
     def initialize
-        @index = rand(0..1)
-        
+        @index = rand(0..1)  
     end
 
     def grow
         if @index < (@@stages_of_madurity.length - 1)
-            @index = @index + 1
+            @index += 1
         end
     end
 
@@ -25,15 +23,13 @@ class Raspberry
 end
 
 class RaspberryBush
-    
-    
-    @@stage_of_growth = ["small", "flowers", "medium", "big"]
-
+     
+    @@stage_of_growth = %w[small flowers medium big]
     attr_accessor :raspberriess, :number_of_raspberries, :index
 
-    def initialize
+    def initialize(number_of_raspberries)
         @index = rand(0...2)
-        @number_of_raspberries = rand(5..25)
+        @number_of_raspberries = number_of_raspberries > 100 ? 100 : number_of_raspberries
         @raspberries = generate_raspberries(@number_of_raspberries)
     end
 
@@ -53,13 +49,12 @@ class RaspberryBush
 
     def grow
         if @index < (@@stage_of_growth.length - 1)
-            @index = @index + 1
+            @index += 1
             @raspberries.each {|raspberry| raspberry.grow}
         else
             @raspberries.each {|raspberry| raspberry.grow}
             puts "The bush is already in the final stage of growth"
-        end
-        
+        end     
     end
 
     def get_stage_of_growth
@@ -71,8 +66,6 @@ class RaspberryBush
         @@stage_of_growth[@index]
     end
 
-
-
     def do_harvest
         # We will only harverst the red raspberries
         count_raspberries = 0
@@ -81,8 +74,7 @@ class RaspberryBush
             if raspberry.madurity_info == "red"
                 count_raspberries = count_raspberries + 1
             end
-        }
-        
+        }        
         if(count_raspberries < @number_of_raspberries)
             message = "have harverst #{count_raspberries} red raspberries of #{number_of_raspberries} raspberries, keep trying"
         else
@@ -91,11 +83,9 @@ class RaspberryBush
         message
     end
 
-    def toString
-        
+    def to_s
         "Rasperry Bush: number of raspberries in it: #{@number_of_raspberries}\nState of bush: #{@@stage_of_growth[@index]}"
     end 
-    
 end
 
 
@@ -108,7 +98,6 @@ class Person
         # the number of raspberries that the plant has (randomly generated)
         @raspberries_count = @plant.number_of_raspberries 
     end
-
 
     def take_care
        if @plant.get_bush_state != "big"
@@ -124,23 +113,20 @@ class Person
     end
 end
 
-
-
-
 puts "Wellcome whats your name ?"
 name = gets.chomp
-plant = RaspberryBush.new
 puts "hello #{name}, you have a Raspberry bush to take care of"
+puts "Select number of Raspberries you want:"
+num_raspberries = gets.chomp.to_i
+plant = RaspberryBush.new(num_raspberries)
 player = Person.new(name, plant)
 puts "Here is it...."
 sleep 2
-puts plant.toString
+puts plant
 sleep 2 
 puts "you can take care of it to make it grow!, and you can harvest the raspberries"
 sleep 2
 puts "but make sure that they are red"
-
-
 
 loop do
     puts "--------------------------"
@@ -168,4 +154,3 @@ loop do
         break
     end 
 end
-
