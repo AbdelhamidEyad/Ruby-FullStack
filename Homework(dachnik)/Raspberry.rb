@@ -14,11 +14,8 @@ class Raspberry
     end
 
     def madurity_info
-        if @@stages_of_madurity[@index] != "red"
-           return @@stages_of_madurity[@index]
-        else
-            return "red"
-        end
+        current_state = @@stages_of_madurity[@index]
+        current_state == "red" ? "red" : current_state
     end
 end
 
